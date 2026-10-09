@@ -156,7 +156,7 @@ let playerPlanetList = [];   // alle Planeten im Besitz des Spielers (wird jeden
 
 // Game State
 let cam = { x: 0, y: 0 };
-let playerCredits = 1500;
+let playerCredits = 1200;
 let lastTime = 0;
 
 let ships = [];
@@ -1650,9 +1650,15 @@ function updateMenu() {
         }
 
         // Start Game
-        if (drawButton("SPIEL STARTEN", V_WIDTH / 2 - 150, V_HEIGHT - 100, 300, 60, false)) {
+        if (drawButton("Piraten", V_WIDTH / 2 - 150, V_HEIGHT - 100, 300, 60, false)) {
             startGame();
         }
+
+        //Game Modes
+        if (drawButton("Fraction war", V_WIDTH / 2 - 150, V_HEIGHT - 100, 600, 60, false)) {
+            startGame();
+        }
+
     }
 }
 
@@ -1674,7 +1680,7 @@ function startGame() {
     mainShip = null;
 
     // Create Main Ship
-    let first = new Ship(0, 0, 'destroyer', selFaction, true);
+    let first = new Ship(0, 0, 'cruiser', selFaction, true);
     ships.push(first);
     setControlledShip(first);
 
