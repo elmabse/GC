@@ -1650,15 +1650,15 @@ function updateMenu() {
         }
 
         // Start Game
-        if (drawButton("Piraten", V_WIDTH / 2 - 150, V_HEIGHT - 100, 100, 60, false)) {
+        if (drawButton("Piraten", V_WIDTH / 2 - 150, V_HEIGHT - 100, 300, 60, false)) {
             startGame();
         }
 
-        //Game Modes
+        /*Game Modes
         if (drawButton("Fraction war", V_WIDTH / 2 - 150, V_HEIGHT - 100, 600, 60, false)) {
             startGame();
         }
-
+        */
     }
 }
 
