@@ -22,8 +22,8 @@ const GAME_STATES = { MENU: 0, FACTION_SELECT: 1, GAME: 2 };
 const DIFFICULTY = {
     EASY:    { id: 'EASY',    name: 'Leicht', fleetSizeMin: 1, fleetSizeMax: 2, credits: 1.5 },
     NORMAL:  { id: 'NORMAL',  name: 'Normal', fleetSizeMin: 2, fleetSizeMax: 3, credits: 1.0 },
-    HARD:    { id: 'HARD',    name: 'Schwer', fleetSizeMin: 3, fleetSizeMax: 5, credits: 0.8 },
-    EXTREME: { id: 'EXTREME', name: 'Extrem', fleetSizeMin: 4, fleetSizeMax: 7, credits: 0.5 }
+    HARD:    { id: 'HARD',    name: 'Schwer', fleetSizeMin: 3, fleetSizeMax: 5, credits: 0.9 },
+    EXTREME: { id: 'EXTREME', name: 'Extrem', fleetSizeMin: 4, fleetSizeMax: 7, credits: 0.7 }
 };
 
 const PLANET_CONFIG = {
@@ -42,9 +42,9 @@ const OWNER = { NONE: 'none', PLAYER: 'player', PIRATE: 'pirate' };
 const OWNER_COLORS = { none: '#888888', player: '#00ff66', pirate: '#ff3333' };
 
 const PIRATE_CONFIG = {
-    maxFleets: 3,                           // maximal gleichzeitige Piratenflotten (alle Schwierigkeiten)
-    firstSpawnDelays: [4000, 20000, 40000], // ms bis zum ersten Spawn pro Flotten-Slot
-    respawnDelay: 120000,                   // ms bis eine zerstörte Flotte neu spawnt (2 Minuten)
+    maxFleets: 4,                           // maximal gleichzeitige Piratenflotten (alle Schwierigkeiten)
+    firstSpawnDelays: [4000, 20000, 20000], // ms bis zum ersten Spawn pro Flotten-Slot
+    respawnDelay: 80000,                   // ms bis eine zerstörte Flotte neu spawnt
     despawnDistance: 7000,                  // Flotten, die komplett weiter weg sind, verschwinden
     despawnRespawnDelay: 5000,              // ms bis Ersatz-Spawn nach Despawn durch Entfernung
     maxFleetSize: 12,                       // absolute Obergrenze pro Flotte
@@ -57,9 +57,9 @@ const PIRATE_CONFIG = {
 
 // Basiswerte der Piratenschiffe (werden mit der Distanz zum Ursprung skaliert)
 const PIRATE_STATS = {
-    destroyer: { hp: 800, dmg: 70 },
-    cruiser:   { hp: 400,  dmg: 35 },
-    fighter:   { hp: 70,   dmg: 12 }
+    destroyer: { hp: 650, dmg: 55 },
+    cruiser:   { hp: 400,  dmg: 30 },
+    fighter:   { hp: 70,   dmg: 10 }
 };
 
 // Selbstreparatur aller Schiffe (HP pro Sekunde)
@@ -68,7 +68,7 @@ const SHIP_REGEN_PER_SEC = 5;
 // Verhalten der Hauptflotte und der Planeten-Garnisonen
 const FLEET_CONFIG = {
     aggroMemory: 4,        // Sekunden, die ein Angreifer als Bedrohung gilt (nach Zielwahl bzw. Treffer)
-    swarmMinRadius: 60,    // Mindestabstand der Schwarm-Wegpunkte zum Hauptschiff (plus Schiffsgrößen)
+    swarmMinRadius: 50,    // Mindestabstand der Schwarm-Wegpunkte zum Hauptschiff (plus Schiffsgrößen)
     swarmSpread: 240,      // zusätzliche zufällige Streuung der Wegpunkte
     wanderTimeMin: 3,      // Sekunden, bis ein Schiff einen neuen Wegpunkt wählt
     wanderTimeMax: 8,
@@ -77,10 +77,10 @@ const FLEET_CONFIG = {
 };
 
 const SHIP_TYPES = {
-    destroyer: { id: 'destroyer', name: 'Star Destroyer', size: 5, turnSpeed: 1, maxSpeed: 200, range: 600, cooldown: 1000 },
+    destroyer: { id: 'destroyer', name: 'Star Destroyer', size: 6, turnSpeed: 1, maxSpeed: 220, range: 700, cooldown: 850 },
     cruiser:   { id: 'cruiser', name: 'Cruiser', size: 3.5, turnSpeed: 2, maxSpeed: 250, range: 450, cooldown: 600 },
     transport: { id: 'transport', name: 'Transport', size: 2.5, turnSpeed: 2.5, maxSpeed: 180, range: 0, cooldown: 9999 },
-    fighter:   { id: 'fighter', name: 'Fighter', size: 1.5, turnSpeed: 4, maxSpeed: 300, range: 300, cooldown: 300 }
+    fighter:   { id: 'fighter', name: 'Fighter', size: 1.5, turnSpeed: 4, maxSpeed: 300, range: 500, cooldown: 200 }
 };
 
 const FACTIONS = {
@@ -91,9 +91,9 @@ const FACTIONS = {
 };
 
 const SHIP_STATS = {
-    clones_destroyer: { hp: 1700, dmg: 120, cost: 1200 }, clones_cruiser: { hp: 500, dmg: 40, cost: 600 }, clones_transport: { hp: 600, dmg: 0, cost: 350 }, clones_fighter: { hp: 80, dmg: 10, cost: 120 },
-    separatists_destroyer: { hp: 1100, dmg: 90, cost: 900 }, separatists_cruiser: { hp: 350, dmg: 35, cost: 450 }, separatists_transport: { hp: 400, dmg: 0, cost: 200 }, separatists_fighter: { hp: 50, dmg: 15, cost: 70 },
-    empire_destroyer: { hp: 1500, dmg: 100, cost: 1500 }, empire_cruiser: { hp: 600, dmg: 45, cost: 650 }, empire_transport: { hp: 700, dmg: 0, cost: 300 }, empire_fighter: { hp: 60, dmg: 12, cost: 100 },
+    clones_destroyer: { hp: 1900, dmg: 120, cost: 1200 }, clones_cruiser: { hp: 500, dmg: 40, cost: 600 }, clones_transport: { hp: 600, dmg: 0, cost: 350 }, clones_fighter: { hp: 120, dmg: 10, cost: 120 },
+    separatists_destroyer: { hp: 1400, dmg: 90, cost: 900 }, separatists_cruiser: { hp: 350, dmg: 35, cost: 450 }, separatists_transport: { hp: 400, dmg: 0, cost: 200 }, separatists_fighter: { hp: 90, dmg: 15, cost: 70 },
+    empire_destroyer: { hp: 1500, dmg: 100, cost: 1500 }, empire_cruiser: { hp: 600, dmg: 45, cost: 650 }, empire_transport: { hp: 700, dmg: 0, cost: 300 }, empire_fighter: { hp: 80, dmg: 12, cost: 90 },
     rebels_destroyer: { hp: 1300, dmg: 70, cost: 1000 }, rebels_cruiser: { hp: 450, dmg: 40, cost: 550 }, rebels_transport: { hp: 500, dmg: 0, cost: 250 }, rebels_fighter: { hp: 100, dmg: 20, cost: 150 }
 };
 
